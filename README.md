@@ -11,9 +11,9 @@ By the way, did he use the same model of screen as me? No one knows, he didn't p
 This is the Video Player part of his project. Fetch other part from his [BaiduDrive](http://pan.baidu.com/share/link?shareid=82148&uk=1225526495).
 
 Credits
-===
+====
 * [沙渺](http://shamiao.com/)
 
 Copyright
-===
-written by [沙渺](http://shamiao.com/project/raspi12864) published in the Public Domain. Modified by [比尔盖子](http://biergaizi.info/), published in the Public Domain. 
+====
+Written by [沙渺](http://shamiao.com/project/raspi12864) published in the Public Domain. Modified by [比尔盖子](http://biergaizi.info/), published in the Public Domain. 
