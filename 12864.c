@@ -1,14 +1,15 @@
-#include <bcm2835.h>
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 #include <sys/timeb.h>
+#include "bcm2835.h"
 
 #define NBYTES ((128*64)/8)
 
-#define A0 RPI_GPIO_P1_11
-#define RST RPI_GPIO_P1_15
+#define A0 RPI_V2_GPIO_P1_18
+#define RST RPI_V2_GPIO_P1_16
 
 void lcm_init();
 void lcm_clear();
@@ -21,22 +22,24 @@ inline void lcm_set_data() {bcm2835_gpio_write(A0, HIGH);}
 
 void lcm_init()
 {
-    bcm2835_gpio_fsel(A0, BCM2835_GPIO_FSEL_OUTP);
-    bcm2835_gpio_fsel(RST, BCM2835_GPIO_FSEL_OUTP);
-
-	bcm2835_gpio_write(RST, LOW);
-	bcm2835_delayMicroseconds(1);
-	bcm2835_gpio_write(RST, HIGH);
-
     bcm2835_spi_begin();
     bcm2835_spi_setBitOrder(BCM2835_SPI_BIT_ORDER_MSBFIRST);
     bcm2835_spi_setDataMode(BCM2835_SPI_MODE3);
     bcm2835_spi_setClockDivider(BCM2835_SPI_CLOCK_DIVIDER_64);
 	/* 64=250ns=4MHz | works up to 16 | unstable 8 | unusable 4 */
-    bcm2835_spi_chipSelect(BCM2835_SPI_CS0);
-    bcm2835_spi_setChipSelectPolarity(BCM2835_SPI_CS0, LOW);
+    bcm2835_spi_chipSelect(BCM2835_SPI_CS_NONE);
 
-	lcm_set_command();
+    bcm2835_gpio_fsel(A0, BCM2835_GPIO_FSEL_OUTP);
+    bcm2835_gpio_fsel(RST, BCM2835_GPIO_FSEL_OUTP);
+
+    bcm2835_delayMicroseconds(1);
+
+    // Reset
+    bcm2835_gpio_write(RST, LOW);
+    bcm2835_delayMicroseconds(10);
+    bcm2835_gpio_write(RST, HIGH);
+
+    lcm_set_command();
     bcm2835_spi_transfer(0xAE); // turn off the screen
 
     bcm2835_spi_transfer(0xD5); // set display clock divide ratio/oscillator frequency
@@ -76,9 +79,9 @@ void lcm_init()
 
     bcm2835_spi_transfer(0xA6); // disable inverse display (normal display)
 
-	bcm2835_spi_transfer(0xAF); // turn on the screen
+    bcm2835_spi_transfer(0xAF); // turn on the screen
 
-	lcm_clear();
+    lcm_clear();
 }
 
 void lcm_clear()
@@ -109,7 +112,7 @@ void lcm_image(unsigned char *imgdata)
 		bcm2835_spi_transfer(0x10);
 		lcm_set_data();
 		for (j=0; j<128; j++) {
-			bcm2835_spi_transfer(*(p++));
+		    bcm2835_spi_transfer(*p++);
 		}
 	}
 }
