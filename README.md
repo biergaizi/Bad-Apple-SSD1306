@@ -8,6 +8,8 @@ A year passed (2012-2013), I ported the code to OLED 12864 with the SSD1306 cont
 
 By the way, did he use the same model of screen as me? No one knows, he didn't published the code. I think he may used different controller. Anyway, It isn't a stolen work, it is my original modification.
 
+This is the Video Player part of his project. Fetch other part from his [BaiduDrive](http://pan.baidu.com/share/link?shareid=82148&uk=1225526495).
+
 Credits
 ===
 * [沙渺](http://shamiao.com/)
