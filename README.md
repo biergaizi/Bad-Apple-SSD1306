@@ -1,5 +1,7 @@
-Bad Apple on SSD1306
+#DeleteGitHub
 ===
+**Deleted**! This project is moved to [notabug.org](https://notabug.org/niconiconi/Bad-Apple-SSD1306), welcome to join the free world!
+
 The original program developed by 沙渺 for the *As long as there is a screen, there will be Bad Apple* Movement. The code was designed for LCD 12864 with the ST7565 controller. You can find out his original work from http://shamiao.com/project/raspi12864. 
 
 Later on, he got an OLED 12864 screen, after [a little modification](http://www.shumeipai.net/thread-1300-1-1.html), the program works on it. But he didn't published the ported code because of too little difference.
